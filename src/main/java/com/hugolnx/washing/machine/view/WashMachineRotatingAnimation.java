@@ -2,7 +2,7 @@ package com.hugolnx.washing.machine.view;
 
 import java.awt.Graphics2D;
 
-import com.hugolnx.washing.machine.view.utils.Resources;
+import com.hugolnx.washing.machine.view.utils.Images;
 
 public class WashMachineRotatingAnimation {
 	private static final int ANIMATION_SIZE = 12;
@@ -31,7 +31,7 @@ public class WashMachineRotatingAnimation {
 	public void updateAndDraw(Graphics2D graphics2d) {
 		if(playing) frame = frame + 1;
 		animationFrame = (frame / speed) % ANIMATION_SIZE;
-		graphics2d.drawImage(Resources.getWashingMachineImage(animationFrame), 0, 0, 289, 400, null);
+		graphics2d.drawImage(Images.getWashingMachineImage(animationFrame), 0, 0, 289, 400, null);
 	}
 
 	private void updateFrame() {

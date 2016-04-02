@@ -1,9 +1,6 @@
 package com.hugolnx.washing.machine;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,55 +9,12 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
+import com.hugolnx.washing.machine.view.PaintLoop;
+import com.hugolnx.washing.machine.view.ScreenPanel;
 import com.hugolnx.washing.machine.view.WashMachineRotatingAnimation;
+import com.hugolnx.washing.machine.view.WashMachineWaterLevel;
 import com.hugolnx.washing.machine.view.utils.PanelFactory;
-
-class PaintLoop implements ActionListener {
-	private Timer timer;
-	private Component component;
-
-	public PaintLoop(Component component) {
-		this.component = component;
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		component.repaint();
-	}
-
-	public void start() {
-		timer = new Timer(1000/60, this);
-		timer.setRepeats(true);
-		timer.start();
-	}
-
-	public static void forComponent(ScreenPanel screen) {
-		new PaintLoop(screen).start();
-	}
-
-}
-
-class ScreenPanel extends JPanel {
-	private PaintLoop paintLoop;
-	private WashMachineRotatingAnimation rotationAnimation;
-	private WashMachineWaterLevel waterLevelAnimation;
-
-	public ScreenPanel(WashMachineRotatingAnimation animation, WashMachineWaterLevel waterLevelAnimation) {
-		this.setSize(289, 400);
-		this.setPreferredSize(new Dimension(289,400));
-		this.rotationAnimation = animation;
-		this.waterLevelAnimation = waterLevelAnimation;
-	}
-	
-	public void paintComponent(Graphics graphics) {
-		super.paintComponent(graphics);
-		Graphics2D graphics2d = (Graphics2D) graphics;
-		rotationAnimation.updateAndDraw(graphics2d);
-		waterLevelAnimation.updateAndDraw(graphics2d);
-	}
-}
 
 public class Main {
 	public static void main(String[] args) {

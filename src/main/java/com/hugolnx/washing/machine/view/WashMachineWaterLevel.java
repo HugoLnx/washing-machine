@@ -1,4 +1,4 @@
-package com.hugolnx.washing.machine;
+package com.hugolnx.washing.machine.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
