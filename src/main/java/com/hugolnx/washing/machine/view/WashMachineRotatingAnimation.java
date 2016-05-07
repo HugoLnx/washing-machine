@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import com.hugolnx.washing.machine.view.utils.Images;
 
 public class WashMachineRotatingAnimation {
-	private static final int ANIMATION_SIZE = 12;
+	private static final int ANIMATION_SIZE = 3;
 	int speed = 1; // frames to next state
 	int frame = 0;
 	int animationFrame = 0;

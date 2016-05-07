@@ -10,7 +10,7 @@ public abstract class Images {
 
 	public static Image getWashingMachineImage(int inx) {
 		if(washingMachineImages[inx] == null) {
-			String imgName = String.format("washing-machine-%d.png", inx+1);
+			String imgName = String.format("maquina-%d.jpg", inx+1);
 			washingMachineImages[inx] = imageFromURL(ImagesFinder.getImageURL(imgName));
 		}
 		return washingMachineImages[inx];

@@ -1,15 +1,15 @@
 package com.hugolnx.washing.machine;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+import com.hugolnx.washing.machine.model.WashingMachine;
+import com.hugolnx.washing.machine.model.WashingMachineController;
+import com.hugolnx.washing.machine.observer.RotatingObserver;
+import com.hugolnx.washing.machine.observer.WaterLevelObserver;
 import com.hugolnx.washing.machine.view.PaintLoop;
 import com.hugolnx.washing.machine.view.ScreenPanel;
 import com.hugolnx.washing.machine.view.WashMachineRotatingAnimation;
@@ -18,7 +18,7 @@ import com.hugolnx.washing.machine.view.utils.PanelFactory;
 
 public class Main {
 	public static void main(String[] args) {
-			JFrame window = new JFrame("jogo bolado");
+			JFrame window = new JFrame("Washing Machine");
 			window.setBounds(0, 0, 640, 400);
 			window.setResizable(false);
 			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -26,66 +26,28 @@ public class Main {
 			WashMachineRotatingAnimation rotationAnim = new WashMachineRotatingAnimation();
 			WashMachineWaterLevel waterLevel = new WashMachineWaterLevel();
 			ScreenPanel screen = new ScreenPanel(rotationAnim, waterLevel);
-			JPanel buttons = createButtons(rotationAnim, waterLevel);
-			window.add(PanelFactory.stackHorizontal(screen, buttons));
+			
+			WashingMachine machine = new WashingMachine();
+			machine.register(new RotatingObserver(rotationAnim));
+			machine.register(new WaterLevelObserver(waterLevel));
+			WashingMachineController controller = new WashingMachineController(machine);
+			JButton button = createButton(controller);
+			window.add(PanelFactory.stackVertical(screen, button));
 			window.pack();
 			window.setVisible(true);
 
 			PaintLoop.forComponent(screen);
         }
 
-	private static JPanel createButtons(final WashMachineRotatingAnimation washMachineAnim, WashMachineWaterLevel waterLevel) {
-		List<Component> buttons = new ArrayList<>();
-		buttons.add(createButton("Parar",new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				washMachineAnim.stop();
-			}
-		}));
+	private static JButton createButton(final WashingMachineController controller) {
+		JButton button = new JButton("Start");
 		
-		buttons.add(createButton("Enxaguar", new ActionListener() {
+		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				washMachineAnim.playWatering();
+				controller.start();
 			}
-		}));
-		
-		buttons.add(createButton("Centrifugar", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				washMachineAnim.playCentrifuging();
-			}
-		}));
-		buttons.add(createButton("0%", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				waterLevel.set(0);
-			}
-		}));
-		buttons.add(createButton("30%", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				waterLevel.set(30);
-			}
-		}));
-		buttons.add(createButton("70%", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				waterLevel.set(70);
-			}
-		}));
-		buttons.add(createButton("100%", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				waterLevel.set(100);
-			}
-		}));
-		return PanelFactory.stackHorizontal(buttons);
-	}
-
-	private static JButton createButton(String label, ActionListener listener) {
-		JButton button = new JButton(label);
-		button.addActionListener(listener);
+		});
 		return button;
 	}
 }
