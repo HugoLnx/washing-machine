@@ -29,9 +29,14 @@ public class WashMachineRotatingAnimation {
 	}
 	
 	public void updateAndDraw(Graphics2D graphics2d) {
-		if(playing) frame = frame + 1;
-		animationFrame = (frame / (PaintLoop.FPS/speed)) % ANIMATION_SIZE;
-		graphics2d.drawImage(Images.getWashingMachineImage(animationFrame), 0, 0, 289, 289, null);
+		if(playing) {
+			frame = frame + 1;
+			animationFrame = (frame / (PaintLoop.FPS/speed)) % ANIMATION_SIZE;
+			graphics2d.drawImage(Images.getWashingMachineImage(animationFrame), 0, 0, 289, 289, null);
+		}
+		else {
+			graphics2d.drawImage(Images.getWashingMachineImage(0), 0, 0, 289, 289, null);
+		}
 	}
 
 	private void updateFrame() {
