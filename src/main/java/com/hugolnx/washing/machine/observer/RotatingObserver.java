@@ -1,6 +1,5 @@
 package com.hugolnx.washing.machine.observer;
 
-import com.hugolnx.washing.machine.model.WashingMachineObserver;
 import com.hugolnx.washing.machine.view.WashMachineRotatingAnimation;
 
 public class RotatingObserver extends WashingMachineObserver {

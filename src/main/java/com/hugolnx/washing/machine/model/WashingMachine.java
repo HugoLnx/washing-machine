@@ -3,6 +3,8 @@ package com.hugolnx.washing.machine.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hugolnx.washing.machine.observer.WashingMachineObserver;
+
 public class WashingMachine {
 	private int cycle;
 	private int waterLevel;

@@ -1,4 +1,4 @@
-package com.hugolnx.washing.machine.model;
+package com.hugolnx.washing.machine.observer;
 
 public abstract class WashingMachineObserver {
 	public void waterLevelChange(int newLevel) {};
